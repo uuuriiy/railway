@@ -16,13 +16,11 @@ function App() {
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
       if (authUser) {
-        // user is logged in
         dispatch({
           type: "Set_User",
           user: authUser,
         });
       } else {
-        // user is logged out
         dispatch({
           type: "Set_User",
           user: null,
@@ -30,7 +28,6 @@ function App() {
       }
     });
     return () => {
-      // Any cleaup operations go here
       unsubscribe();
     };
   }, []);
