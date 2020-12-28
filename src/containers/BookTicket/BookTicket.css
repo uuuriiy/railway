@@ -1,0 +1,16 @@
+.bookTicket {
+  margin-left: 50px;
+}
+
+.bookTicket__title {
+  text-align: center;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  color: rgb(112, 107, 107);
+}
+
+.bookTicket__buttonContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}

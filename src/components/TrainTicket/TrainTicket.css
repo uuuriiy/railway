@@ -1,0 +1,95 @@
+.trainTicket__container {
+  width: 100%;
+  max-width: 984px;
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 10px;
+  padding-right: 10px;
+  clear: both;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.trainTicket__MainInfoContainer {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  background-color: #fafafa;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
+  padding: 15px;
+}
+
+.trainTicket__MainInfoTitle {
+  color: rgb(173, 163, 163);
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: normal;
+  padding-left: 15px;
+  margin-bottom: 10px;
+}
+
+.trainTicket__MainInfo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.trainTicket__MainInfoTrainNumber {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* padding-right: 25px; */
+}
+
+.trainTicket__MainInfoTrainLogo {
+  padding-left: 15px;
+  padding-right: 10px;
+}
+
+.trainTicket__MainInfoTrainRoute {
+  padding-left: 15px;
+  padding-top: 8px;
+  color: rgb(112, 107, 107);
+}
+
+.trainTicket__MainInfoTrainTime {
+  font-size: 20px;
+  padding-bottom: 10px;
+}
+
+.trainTicket__MainInfoTrainDate {
+  /* padding-top: 8px; */
+  color: rgb(112, 107, 107);
+  font-size: 14px;
+  padding-right: 15px;
+}
+
+.trainTicket__MainInfoTrainTickets {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.trainTicket__MainInfoTrainTicketsPrice {
+  padding-right: 15px;
+}
+
+.trainTicket__MainInfoTrainTicketsTypeOfTrain {
+  color: rgb(112, 107, 107);
+  font-size: 14px;
+}
+
+.trainTicket__MainInfoTrainTicketsFreePlaces {
+  padding-left: 15px;
+  font-weight: 600;
+}
+
+.trainTicket__button {
+  display: flex;
+  justify-content: center;
+  margin-top: 5px;
+}
+
+.MuiButton-root {
+  padding: 6px 50px !important;
+}

@@ -1,0 +1,40 @@
+.homePage {
+  background-image: url("https://proizd.ua/main-search-bg.87e585cbcba0d6614a1b.jpg");
+  min-height: 640px;
+  height: 100vh;
+  align-items: center;
+  color: white;
+}
+
+.homePage__titleContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+}
+
+.homePage__title {
+  padding-top: 200px;
+  font-size: 48px;
+  font-weight: 400;
+  text-align: center;
+  letter-spacing: -1px;
+  font-family: Gotham Pro, Trebuchet MS, Helvetica, sans-serif;
+}
+
+.homePage__advertisingTitle {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 13px;
+  opacity: 0.75;
+  font-weight: 400;
+  font-family: Gotham Pro, Trebuchet MS, Helvetica, sans-serif;
+}
+.homePage__button > a {
+  text-decoration: none;
+}
+
+.homePage__button {
+  margin-top: 30px;
+}

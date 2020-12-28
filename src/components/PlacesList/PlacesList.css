@@ -1,0 +1,9 @@
+.placesList {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.placesList__place {
+  padding: 5px;
+}

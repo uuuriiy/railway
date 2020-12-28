@@ -1,23 +1,54 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from "react";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import "./App.css";
+import { HomePage } from "./components/HomePage/HomePage";
+import { BookTicket } from "./containers/BookTicket/BookTicket";
+import { BuyTicket } from "./containers/BuyTicket/BuyTicket";
+import { Login } from "./containers/Login/Login";
+import { SearchRailways } from "./containers/SearchRailways/SearchRailways";
+import { SignUp } from "./containers/SignUp/SignUp";
+import { useStateValue } from "./context/StateProvider/StateProvider";
+import { auth } from "./firebase/firebase";
 
 function App() {
+  const [{ user }, dispatch] = useStateValue();
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((authUser) => {
+      if (authUser) {
+        // user is logged in
+        dispatch({
+          type: "Set_User",
+          user: authUser,
+        });
+      } else {
+        // user is logged out
+        dispatch({
+          type: "Set_User",
+          user: null,
+        });
+      }
+    });
+    return () => {
+      // Any cleaup operations go here
+      unsubscribe();
+    };
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      <Router>
+        <Switch>
+          <Route exact path="/" component={HomePage} />
+          <Route path="/login" component={Login} />
+          <Route path="/signUp" component={SignUp} />
+          <Route path="/railwaySearch">
+            <SearchRailways />
+          </Route>
+          <Route path="/buy" component={BuyTicket} />
+          <Route path="/book" component={BookTicket} />
+        </Switch>
+      </Router>
     </div>
   );
 }

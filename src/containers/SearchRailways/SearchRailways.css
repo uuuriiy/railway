@@ -1,0 +1,30 @@
+.searchRailways {
+  background-color: rgb(245, 245, 245);
+}
+
+.searchRailways__formContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+  /* background-color: white; */
+}
+
+.searchRailways__formInputMargin {
+  margin-right: 5px;
+}
+
+.searchRailways__button {
+  padding: 15px;
+}
+
+.searchRailways__ticketContainer {
+  width: 100%;
+  max-width: 984px;
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 10px;
+  padding-right: 10px;
+  clear: both;
+  margin-top: 50px;
+}
