@@ -29,7 +29,7 @@ export const SignUp = () => {
       }
     });
     return () => {
-      // Any cleaup operations go here
+      // Any clear up operations go here
       unsubscribe();
     };
   }, [user, userName]);
@@ -41,7 +41,7 @@ export const SignUp = () => {
       .createUserWithEmailAndPassword(email, password)
       .then((authUser) => {
         // addUser(userName, email, password);
-        alert(`Succesful sign up`);
+        alert(`Successful sign up`);
         history.push("/login");
         return authUser.user.updateProfile({
           displayName: userName,

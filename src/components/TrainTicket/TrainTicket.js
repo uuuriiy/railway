@@ -16,7 +16,7 @@ export const TrainTicket = ({ ticket }) => {
     TypeOfTrain,
     Сompartment: { Price, Wagons },
   } = ticket;
-  console.log(ticket);
+  //console.log(ticket);
   const amountOfFreePlaces = (array) => {
     let res = 0;
     for (let index = 0; index < array.length; index++) {
@@ -28,7 +28,7 @@ export const TrainTicket = ({ ticket }) => {
         }
       }
     }
-    console.log(res);
+    //console.log(res);
     return <div>{res}</div>;
   };
 

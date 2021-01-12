@@ -24,7 +24,7 @@ export const SearchRailways = () => {
     });
   }, []);
 
-  console.log(trains);
+  //console.log(trains);
 
   const loadTrain = (e) => {
     e.preventDefault();
@@ -79,9 +79,9 @@ export const SearchRailways = () => {
         </Button>
       </form>
       <div className="searchRailways__ticketContainer">
-        <TrainTicketDescription />
         {!!loadTicket ? (
           <div>
+            <TrainTicketDescription />
             {!!trains.length &&
               trains.map(({ id, train }) => {
                 const {

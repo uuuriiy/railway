@@ -58,7 +58,7 @@ export const Login = () => {
           </Button>
           <p className="login__signUpLink">
             {" "}
-            <NavLink to="/signUp">Don't have an accoun? Create here </NavLink>
+            <NavLink to="/signUp">Don't have an account? Create here </NavLink>
           </p>
         </FormControl>
       </form>

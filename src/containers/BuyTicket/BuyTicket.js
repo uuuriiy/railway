@@ -11,6 +11,7 @@ import Avatar from "@material-ui/core/Avatar";
 import ImageIcon from "@material-ui/icons/Image";
 import { Button } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
+import {useStateValue} from "../../context/StateProvider/StateProvider";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -36,6 +37,8 @@ const useStyles = makeStyles((theme) => ({
 // wagonNumber: 5
 
 export const BuyTicket = () => {
+    const [{ user }, dispatch] = useStateValue();
+    //console.log(user)
   const [buyingTicket, setBuyingTicket] = useState([]);
   const classes = useStyles();
   const history = useHistory();
@@ -51,7 +54,7 @@ export const BuyTicket = () => {
     });
   }, []);
 
-  console.log(buyingTicket);
+  //console.log(buyingTicket);
 
   const back = () => {
     history.push("/railwaySearch");
@@ -64,34 +67,39 @@ export const BuyTicket = () => {
       <div className="buyTicket">
         <List className={classes.root}>
           {!!buyingTicket.length &&
-            buyingTicket.map(({ id, buyingTicket }) => (
-              <ListItem key={id}>
-                <ListItemAvatar>
-                  <Avatar>
-                    <ImageIcon />
-                  </Avatar>
-                </ListItemAvatar>
-                <ListItemText
-                  primary={buyingTicket.name}
-                  secondary={buyingTicket.surname}
-                />
-                <ListItemText
-                  primary={buyingTicket.wagonNumber}
-                  secondary={buyingTicket.choosenPlace}
-                />
-                <ListItemText primary={buyingTicket.departurePlace} />
-                <ListItemText
-                  primary={buyingTicket.departureTime}
-                  secondary={buyingTicket.departureDate}
-                />
-                <ListItemText primary={buyingTicket.destinationPlace} />
-                <ListItemText
-                  primary={buyingTicket.destinationTime}
-                  secondary={buyingTicket.destinationDate}
-                />
-                <ListItemText primary={buyingTicket.price} />
-              </ListItem>
-            ))}
+            buyingTicket.map(({ id, buyingTicket }) => {
+                if ( buyingTicket.name === user.displayName
+                ) {
+                    return (
+                        <ListItem key={id}>
+                            <ListItemAvatar>
+                                <Avatar>
+                                    <ImageIcon />
+                                </Avatar>
+                            </ListItemAvatar>
+                            <ListItemText
+                                primary={buyingTicket.name}
+                                secondary={buyingTicket.surname}
+                            />
+                            <ListItemText
+                                primary={buyingTicket.wagonNumber}
+                                secondary={buyingTicket.choosenPlace}
+                            />
+                            <ListItemText primary={buyingTicket.departurePlace} />
+                            <ListItemText
+                                primary={buyingTicket.departureTime}
+                                secondary={buyingTicket.departureDate}
+                            />
+                            <ListItemText primary={buyingTicket.destinationPlace} />
+                            <ListItemText
+                                primary={buyingTicket.destinationTime}
+                                secondary={buyingTicket.destinationDate}
+                            />
+                            <ListItemText primary={buyingTicket.price} />
+                        </ListItem>
+                    )
+                }
+            } )}
         </List>
       </div>
       <div className="bookTicket__buttonContainer">

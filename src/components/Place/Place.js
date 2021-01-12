@@ -1,16 +1,15 @@
 import {
   Button,
   FormControl,
-  Input,
   makeStyles,
   Modal,
   TextField,
 } from "@material-ui/core";
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import { db } from "../../firebase/firebase";
 import { NavLink, useHistory } from "react-router-dom";
 import "./Place.css";
-import { AlertTitle } from "@material-ui/lab";
+import {useStateValue} from "../../context/StateProvider/StateProvider";
 
 function getModalStyle() {
   const top = 50;
@@ -35,7 +34,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const Place = ({ train, wagon, place }) => {
+    const [{ user }, dispatch] = useStateValue();
   const history = useHistory();
+  const [buyingTicketPlace, setBuyingTicketPlace] = useState({});
+    const [bookingTicketPlace, setBookingTicketPlace] = useState({});
   const [open, setOpen] = useState(false);
   const [openBuy, setOpenBuy] = useState(false);
   const [openBook, setOpenBook] = useState(false);
@@ -54,76 +56,135 @@ export const Place = ({ train, wagon, place }) => {
     DestinationTime,
     DestinationDate,
     TypeOfTrain,
-    Сompartment: { Price },
+      Сompartment: { Price },
   } = train;
+
+    //console.log(user.displayName)
+
+    useEffect( () => {
+        db.collection('BuyingTickets').onSnapshot( snapshot => {
+            setBuyingTicketPlace(snapshot.docs.map( doc =>  ({ place: doc.data().choosenPlace})))
+        } )
+    }, [] )
+
+    useEffect( () => {
+        db.collection('BookingTickets').onSnapshot( snapshot => {
+            setBookingTicketPlace(snapshot.docs.map( doc =>  ({ place: doc.data().choosenPlace})))
+        } )
+    }, [] )
+
+    // console.log(buyingTicketPlace.place)
 
   const buy = (e) => {
     e.preventDefault();
-    if (!name) {
-      alert("Error Enter a name");
-      history.push("/railwaySearch");
-    }
-    if (!cardNumber) {
-      alert("Error Enter a card number");
-    }
-    db.collection("BuyingTickets")
-      .add({
-        name: name,
-        surname: surname,
-        cardNumber: cardNumber,
-        trainNumber: TrainNumber,
-        departurePlace: DeparturePlace,
-        destinationPlace: DestinationPlace,
-        departureDate: DepartureDate,
-        departureTime: DepartureTime,
-        destinationPlace: DestinationPlace,
-        destinationDate: DestinationDate,
-        destinationTime: DestinationTime,
-        typeOfTrain: TypeOfTrain,
-        wagonNumber: wagon,
-        choosenPlace: choosenPlace,
-        price: Price,
-      })
-      .then(() => {
-        history.push("/buy");
-      })
-      .catch((error) => alert(error));
-    return alert(` Operation Completed. You paid ${Price} UAH `);
+    buyingTicketPlace.map( ticket => {
+        return bookingTicketPlace.map( bookTicket => {
+            if (ticket.place !== choosenPlace && bookTicket.place !== choosenPlace) {
+                if ( !name && !surname && !cardNumber ) {
+                    alert(" Error Fill the Field ")
+                    return
+                }
+                if (!name) {
+                    alert("Error Enter a name");
+                    return ;
+                }
+                if (!surname) {
+                    alert("Error Enter a surname");
+                    return ;
+                }
+                if (!cardNumber) {
+                    alert("Error Enter a card number");
+                    return
+                }
+                if ( name !== user.displayName ) {
+                    alert(" Name is not correct ")
+                    return
+                }
+                db.collection("BuyingTickets")
+                    .add({
+                        name: name,
+                        surname: surname,
+                        cardNumber: cardNumber,
+                        trainNumber: TrainNumber,
+                        departurePlace: DeparturePlace,
+                        destinationPlace: DestinationPlace,
+                        departureDate: DepartureDate,
+                        departureTime: DepartureTime,
+                        destinationDate: DestinationDate,
+                        destinationTime: DestinationTime,
+                        typeOfTrain: TypeOfTrain,
+                        wagonNumber: wagon,
+                        choosenPlace: choosenPlace,
+                        price: Price,
+                    })
+                    .then(() => {
+                        history.push("/buy");
+                    })
+                return alert(` Operation Completed. You paid ${Price} UAH `);
+            } else {
+                alert('Choose another place')
+                history.push("/railwaySearch");
+                return
+            }
+        } )
+
+    } )
+
   };
 
   const book = (e) => {
     e.preventDefault();
-    if (!name) {
-      alert("Error Enter a name");
-    }
-    db.collection("BookingTickets")
-      .add({
-        name: name,
-        surname: surname,
-        cardNumber: cardNumber,
-        trainNumber: TrainNumber,
-        departurePlace: DeparturePlace,
-        destinationPlace: DestinationPlace,
-        departureDate: DepartureDate,
-        departureTime: DepartureTime,
-        destinationPlace: DestinationPlace,
-        destinationDate: DestinationDate,
-        destinationTime: DestinationTime,
-        typeOfTrain: TypeOfTrain,
-        wagonNumber: wagon,
-        choosenPlace: choosenPlace,
-        price: Price,
-      })
-      .then(() => {
-        history.push("/book");
-      })
-      .catch((error) => alert(error));
-    return alert(
-      ` Operation Completed. You have buy your ticket or book will expired `
-    );
+    buyingTicketPlace.map( ticket => {
+        return buyingTicketPlace.map( buyingTicket => {
+            if (ticket.place !== choosenPlace && buyingTicket.place !== choosenPlace) {
+                if ( !name && !surname && !cardNumber ) {
+                    alert(" Error Fill the Field ")
+                    return
+                }
+                if (!name) {
+                    alert("Error Enter a name");
+                    return ;
+                }
+                if (!surname) {
+                    alert("Error Enter a surname");
+                    return ;
+                }
+                if (!cardNumber) {
+                    alert("Error Enter a card number");
+                    return
+                }
+                db.collection("BookingTickets")
+                    .add({
+                        name: name,
+                        surname: surname,
+                        cardNumber: cardNumber,
+                        trainNumber: TrainNumber,
+                        departurePlace: DeparturePlace,
+                        departureDate: DepartureDate,
+                        departureTime: DepartureTime,
+                        destinationPlace: DestinationPlace,
+                        destinationDate: DestinationDate,
+                        destinationTime: DestinationTime,
+                        typeOfTrain: TypeOfTrain,
+                        wagonNumber: wagon,
+                        choosenPlace: choosenPlace,
+                        price: Price,
+                    })
+                    .then(() => {
+                        history.push("/book");
+                    })
+                    .catch((error) => alert(error));
+                return alert(
+                    ` Operation Completed. You have buy your ticket or book will expired `
+                );
+            }
+        } )
+
+    } )
+
   };
 
-  console.log(place.Places);
+  //console.log(place.Places);
 
   return (
     <div>
