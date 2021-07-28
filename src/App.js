@@ -43,7 +43,7 @@ function App() {
             <SearchRailways />
           </Route>
           <Route path="/buy" component={BuyTicket} />
-          <Route path="/book" component={BookTicket} />
+          {/*<Route path="/book" component={BookTicket} />*/}
         </Switch>
       </Router>
     </div>

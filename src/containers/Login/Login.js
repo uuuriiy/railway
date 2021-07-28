@@ -15,10 +15,12 @@ export const Login = () => {
     auth
       .signInWithEmailAndPassword(email, password)
       .then(() => {
-        alert("Loginisation is Completed ");
+        // alert("Loginisation is Completed ");
         history.push("/railwaySearch");
       })
-      .catch((error) => alert(error));
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (

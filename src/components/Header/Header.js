@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import HeaderBG from "../../assets/header-bg.svg";
 import logo from "../../assets/logo.svg";
 import { useStateValue } from "../../context/StateProvider/StateProvider";
@@ -8,12 +8,15 @@ import "./Header.css";
 
 export const Header = () => {
   const [{ user }] = useStateValue();
+  const history = useHistory()
 
   // console.log(user);
 
   const login = () => {
     if (user) {
-      auth.signOut();
+      auth.signOut()
+          //.then( () =>  history.push('login') )
+
     }
   };
   return (

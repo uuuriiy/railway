@@ -41,13 +41,15 @@ export const SignUp = () => {
       .createUserWithEmailAndPassword(email, password)
       .then((authUser) => {
         // addUser(userName, email, password);
-        alert(`Successful sign up`);
+        // alert(`Successful sign up`);
         history.push("/login");
         return authUser.user.updateProfile({
           displayName: userName,
         });
       })
-      .catch((error) => alert(error));
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
